@@ -39,7 +39,5 @@
         "spec/controllers/$1_spec.rb",
         "spec/requests/$1_spec.rb"
       ]
-
-    // Rails models
   }
 }
