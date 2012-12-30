@@ -15,17 +15,27 @@
     ".+\/app\/controllers\/(.+)_controller.rb":
       [
         "app/views/$1/**",
-        "app/helpers/$1_helper.rb"
+        "app/helpers/$1_helper.rb",
+        "spec/requests/$1_spec.rb"
       ],
 
     // Rails helpers
     ".+\/app\/helpers\/(.+)_helper.rb":
       [
         "app/views/$1/**",
-        "app/controllers/$1_controller.rb"
-      ]
+        "app/controllers/$1_controller.rb",
+        "spec/requests/$1_spec.rb"
+      ],
 
     // Rails views
+    ".+\/app\/views\/(.+)\/[^\/].+":
+      [
+        "app/views/$1/**",
+        "app/controllers/$1_controller.rb",
+        "app/helpers/$1_helper.rb",
+        "spec/controllers/$1_spec.rb",
+        "spec/requests/$1_spec.rb"
+      ]
 
     // Rails models
   }
