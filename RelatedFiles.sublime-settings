@@ -1,0 +1,5 @@
+{
+  "patterns": {
+    ".+\/app\/controllers\/(.+)_controller.rb": ["*/app/views/$1/**", "*/test/controllers/$1_controller_test.rb"]
+  }
+}
