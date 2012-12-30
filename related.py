@@ -15,17 +15,29 @@ class Related(object):
     # The glob paths will have their $i replaced by the matched groups within the file name
     # matcher.
     def __init__(self, file_path, patterns, folders):
-        self.file_path = file_path
-        self.patterns = patterns
-        self.root = self.__root(folders)
+        self.__file_path = file_path
+        self.__patterns = patterns
+        self.__root = self.__root(folders)
+        self.__files = []
+        self.__descriptions = []
+        self.__build()
 
-    # Returns a list with all related files.
-    def all(self):
+    # # Retrieves a list of all related descriptions.
+    def descriptions(self):
+        return self.__descriptions
+
+    # # Retrieves a list of all related files paths.
+    def files(self):
+        return self.__files
+
+    # Builds a list with all related files and sets self.descriptions and
+    # self.files.
+    def __build(self):
         files = Set()
 
         # for each matching pattern
-        for regex, paths in self.patterns.iteritems():
-            match = re.compile(regex).match(self.file_path)
+        for regex, paths in self.__patterns.iteritems():
+            match = re.compile(regex).match(self.__file_path)
             if match:
                 # returns a flattened file list
                 files.update(self.__files_for_paths(match, paths))
@@ -34,32 +46,27 @@ class Related(object):
         files = list(files)
         files.sort()
 
-        return self.__files_with_description(files)
+        self.__files = files
+        self.__descriptions = [self.__file_without_root(file) for file in files]
 
     # Returns the root folder for the given file and folders
     def __root(self, folders):
         for folder in folders:
-            if self.file_path.startswith(folder):
+            if self.__file_path.startswith(folder):
                 return folder
 
     # Retrieves a list of files fot the given match and paths
     def __files_for_paths(self, match, paths):
         paths = [self.__replaced_path(match, path) for path in paths]
-        files = [glob.glob(self.root + "/" + path) for path in paths]
+        files = [glob.glob(self.__root + "/" + path) for path in paths]
 
         flattened = list(itertools.chain.from_iterable(files))
 
         return flattened
 
-    # Retrieves a list of files with their description.
-    #
-    # [["file/path", "/full/file/path"]]
-    def __files_with_description(self, files):
-        return [[self.__file_without_root(file), file] for file in files]
-
     # Retrieves the file name without the root part.
     def __file_without_root(self, file):
-        return os.path.basename(self.root) + file[len(self.root):]
+        return os.path.basename(self.__root) + file[len(self.__root):]
 
     # Retrieves a path with its interpolation vars replaces by the found groups
     # on match.
