@@ -3,7 +3,7 @@ import sublime_plugin
 from related import *
 
 
-class RailsRelatedFilesCommand(sublime_plugin.WindowCommand):
+class RelatedFilesCommand(sublime_plugin.WindowCommand):
     def run(self, index=None):
         active_file_path = self.__active_file_path()
 

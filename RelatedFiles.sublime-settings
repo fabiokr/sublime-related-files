@@ -1,15 +1,18 @@
 {
   "patterns": {
     // Test/specs for ruby files
-    ".+\/app\/(.+).rb":
+    ".+\/(app|lib)\/(.+).rb":
       [
-        "spec/$1_spec.rb",
-        "test/$1_test.rb"
+        "spec/$2_spec.rb",
+        "test/$2_test.rb"
       ],
 
     // Ruby files for test/specs
     ".+\/(test|spec)\/(.+)_(test|spec).rb":
-      ["app/$2.rb"],
+      [
+        "app/$2.rb",
+        "lib/$2.rb"
+      ],
 
     // Rails controllers
     ".+\/app\/controllers\/(.+)_controller.rb":

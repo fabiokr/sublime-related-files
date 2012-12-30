@@ -1,3 +1,0 @@
-[
-  { "keys": ["ctrl+super+p"], "command": "rails_related_files", "args": {"index": -1 }}
-]
