@@ -6,7 +6,10 @@ from related import *
 class RelatedTest(unittest.TestCase):
 
     def __patterns(self):
-        return {".+\/app\/controllers\/(.+)_controller.rb": ["app/views/$1/**", "test/controllers/$1_controller_test.rb"]}
+        return {
+          ".+\/app\/controllers\/(.+)_controller.rb": ["app/views/$1/**", "app/helpers/$1_helper.rb"],
+          ".+\/app\/(.+).rb": ["test/$1_test.rb"]
+        }
 
     def __file(self):
         return self.__expand("fixtures/example1/app/controllers/examples_controller.rb")
@@ -21,6 +24,10 @@ class RelatedTest(unittest.TestCase):
         related_files = Related(self.__file(), self.__patterns(), self.__folders())
 
         self.assertEqual(related_files.all(), [
+          [
+              "example1/app/helpers/examples_helper.rb",
+              self.__expand("fixtures/example1/app/helpers/examples_helper.rb"),
+          ],
           [
               "example1/app/views/examples/index.html",
               self.__expand("fixtures/example1/app/views/examples/index.html"),

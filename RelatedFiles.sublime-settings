@@ -1,5 +1,17 @@
 {
   "patterns": {
-    ".+\/app\/controllers\/(.+)_controller.rb": ["app/views/$1/**", "spec/controllers/$1_controller_spec.rb"]
+    // Test/Spec files
+    ".+\/app\/(.+).rb":
+      [
+        "spec/$1_spec.rb",
+        "test/$1_test.rb"
+      ],
+
+    // Rails controllers
+    ".+\/app\/controllers\/(.+)_controller.rb":
+      [
+        "app/views/$1/**",
+        "app/helpers/$1_helper.rb"
+      ]
   }
 }

@@ -2,6 +2,7 @@ import os
 import re
 import glob
 import itertools
+from sets import Set
 
 
 class Related(object):
@@ -20,21 +21,20 @@ class Related(object):
 
     # Returns a list with all related files.
     def all(self):
-        pattern = self.__lookup_pattern()
+        files = Set()
 
-        if pattern:
-            # returns a flattened file list
-            files = self.__files_for_path(pattern[0], pattern[1])
-            return self.__files_with_description(files)
-        else:
-            return []
-
-    # Retrives the matching regex and paths.
-    def __lookup_pattern(self):
+        # for each matching pattern
         for regex, paths in self.patterns.iteritems():
             match = re.compile(regex).match(self.file_path)
             if match:
-                return [match, paths]
+                # returns a flattened file list
+                files.update(self.__files_for_paths(match, paths))
+
+        # sorts items
+        files = list(files)
+        files.sort()
+
+        return self.__files_with_description(files)
 
     # Returns the root folder for the given file and folders
     def __root(self, folders):
@@ -43,12 +43,11 @@ class Related(object):
                 return folder
 
     # Retrieves a list of files fot the given match and paths
-    def __files_for_path(self, match, paths):
+    def __files_for_paths(self, match, paths):
         paths = [self.__replaced_path(match, path) for path in paths]
         files = [glob.glob(self.root + "/" + path) for path in paths]
 
         flattened = list(itertools.chain.from_iterable(files))
-        flattened.sort()
 
         return flattened
 
