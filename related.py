@@ -39,10 +39,8 @@ class Related(object):
         for regex, paths in self.__patterns.iteritems():
             match = re.compile(regex).match(self.__file_path)
             if match:
-                print "Pattern match: /%s/: %s" % (regex, paths)
-
                 # returns a flattened file list
-                files.update(self.__files_for_paths(match, paths))
+                files.update(self.__files_for_paths(regex, match, paths))
 
         # sorts items
         files = list(files)
@@ -54,14 +52,17 @@ class Related(object):
     # Returns the root folder for the given file and folders
     def __root(self, folders):
         for folder in folders:
-            if self.__file_path.startswith(folder):
+            if self.__file_path.startswith(folder + "/"):
                 return folder
 
     # Retrieves a list of files fot the given match and paths
-    def __files_for_paths(self, match, paths):
+    def __files_for_paths(self, regex, match, paths):
         paths = [self.__replaced_path(match, path) for path in paths]
-        files = [glob.glob(self.__root + "/" + path) for path in paths]
 
+        print "Pattern match: /%s/: %s" % (regex, paths)
+        print [self.__root + "/" + path for path in paths]
+
+        files = [glob.glob(self.__root + "/" + path) for path in paths]
         flattened = list(itertools.chain.from_iterable(files))
 
         # Ignores current file
