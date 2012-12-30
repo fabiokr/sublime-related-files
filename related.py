@@ -39,7 +39,7 @@ class Related(object):
         for regex, paths in self.__patterns.iteritems():
             match = re.compile(regex).match(self.__file_path)
             if match:
-                print "Pattern match: %s" % regex
+                print "Pattern match: /%s/: %s" % (regex, paths)
 
                 # returns a flattened file list
                 files.update(self.__files_for_paths(match, paths))
@@ -62,9 +62,11 @@ class Related(object):
         paths = [self.__replaced_path(match, path) for path in paths]
         files = [glob.glob(self.__root + "/" + path) for path in paths]
 
-        print "Globs: %s" % paths
-
         flattened = list(itertools.chain.from_iterable(files))
+
+        # Ignores current file
+        if self.__file_path in flattened:
+            flattened.remove(unicode(self.__file_path))
 
         return flattened
 
