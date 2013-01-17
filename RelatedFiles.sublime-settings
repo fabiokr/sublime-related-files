@@ -19,6 +19,7 @@
       [
         "app/views/$1/**",
         "app/helpers/$1_helper.rb",
+        "config/routes.rb",
         "spec/requests/$1_spec.rb",
         "spec/routing/$1_routing_spec.rb"
       ],
@@ -28,6 +29,7 @@
       [
         "app/views/$1/**",
         "app/controllers/$1_controller.rb",
+        "config/routes.rb",
         "spec/requests/$1_spec.rb"
       ],
 
@@ -37,6 +39,7 @@
         "app/views/$1/**",
         "app/controllers/$1_controller.rb",
         "app/helpers/$1_helper.rb",
+        "config/routes.rb",
         "spec/controllers/$1_spec.rb",
         "spec/requests/$1_spec.rb"
       ],
@@ -52,7 +55,8 @@
       [
         "app/controllers/$1_controller.rb",
         "app/helpers/$1_helper.rb",
-        "app/views/$1/**"
+        "app/views/$1/**",
+        "config/routes.rb"
       ],
 
     // Rails request specs
@@ -60,7 +64,8 @@
       [
         "app/controllers/$1_controller.rb",
         "app/helpers/$1_helper.rb",
-        "app/views/$1/**"
+        "app/views/$1/**",
+        "config/routes.rb"
       ]
   }
 }
