@@ -59,9 +59,6 @@ class Related(object):
     def __files_for_paths(self, regex, match, paths):
         paths = [self.__replaced_path(match, path) for path in paths]
 
-        print "Pattern match: /%s/: %s" % (regex, paths)
-        print [self.__root + "/" + path for path in paths]
-
         files = [glob.glob(self.__root + "/" + path) for path in paths]
         flattened = list(itertools.chain.from_iterable(files))
 
