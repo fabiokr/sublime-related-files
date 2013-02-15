@@ -14,13 +14,6 @@
         "lib/$2.rb"
       ],
 
-    // Lib
-    ".+\/(lib)\/(.+).rb":
-      [
-        "spec/lib/$2_spec.rb",
-        "test/lib/$2_test.rb"
-      ],
-
     // Rails controllers
     ".+\/app\/controllers\/(.+)_controller.rb":
       [
@@ -57,6 +50,13 @@
         "spec/routing/**"
       ],
 
+    // Rails libs
+    ".+\/(lib)\/(.+).rb":
+      [
+        "spec/lib/$2_spec.rb",
+        "test/lib/$2_test.rb"
+      ],
+
     // Rails controllers specs
     ".+/spec/controllers/(.+)_controller_spec.rb":
       [
@@ -73,6 +73,12 @@
         "app/helpers/$1_helper.rb",
         "app/views/$1/**",
         "config/routes.rb"
+      ],
+
+    // Rails libs specs
+    ".+/spec/lib/(.+)_spec.rb":
+      [
+        "lib/$1.rb"
       ]
   }
 }
