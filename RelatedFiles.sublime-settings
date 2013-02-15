@@ -14,6 +14,13 @@
         "lib/$2.rb"
       ],
 
+    // Lib
+    ".+\/(lib)\/(.+).rb":
+      [
+        "spec/lib/$2_spec.rb",
+        "test/lib/$2_test.rb"
+      ],
+
     // Rails controllers
     ".+\/app\/controllers\/(.+)_controller.rb":
       [
