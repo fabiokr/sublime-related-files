@@ -2,7 +2,6 @@ import os
 import re
 import glob
 import itertools
-from sets import Set
 
 
 class Related(object):
@@ -33,7 +32,7 @@ class Related(object):
     # Builds a list with all related files and sets self.descriptions and
     # self.files.
     def __build(self):
-        files = Set()
+        files = set()
 
         # for each matching pattern
         for regex, paths in self.__patterns.iteritems():
