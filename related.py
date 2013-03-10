@@ -34,9 +34,11 @@ class Related(object):
     def __build(self):
         files = set()
 
+        file_path = self.__to_posixpath(self.__file_path)
+
         # for each matching pattern
         for regex, paths in self.__patterns.iteritems():
-            match = re.compile(regex).match(self.__file_path)
+            match = re.compile(regex).match(file_path)
             if match:
                 # returns a flattened file list
                 files.update(self.__files_for_paths(regex, match, paths))
@@ -51,15 +53,15 @@ class Related(object):
     # Returns the root folder for the given file and folders
     def __root(self, folders):
         for folder in folders:
-            if self.__file_path.startswith(folder + "/"):
+            if self.__file_path.startswith(os.path.join(folder, "")):
                 return folder
 
     # Retrieves a list of files fot the given match and paths
     def __files_for_paths(self, regex, match, paths):
         paths = [self.__replaced_path(match, path) for path in paths]
 
-        files = [glob.glob(self.__root + "/" + path) for path in paths]
-        flattened = list(itertools.chain.from_iterable(files))
+        files = [glob.glob(os.path.join(self.__root, path)) for path in paths]
+        flattened = [self.__to_posixpath(path) for path in list(itertools.chain.from_iterable(files))]
 
         # Ignores current file
         if self.__file_path in flattened:
@@ -78,3 +80,7 @@ class Related(object):
         for i, group in enumerate(match.groups()):
             replaced_path = replaced_path.replace("$%s" % (i + 1), group)
         return replaced_path
+
+    # Converts paths to posixpaths.
+    def __to_posixpath(self, path):
+        return re.sub("\\\\", "/", path)
