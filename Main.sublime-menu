@@ -15,7 +15,7 @@
                         "caption": "RelatedFiles",
                         "children":
                         [
-                            { "command": "open_file", "args": {"file": "${packages}/RelatedFiles/RelatedFiles.sublime-settings"}, "caption": "Settings – Default" },
+                            { "command": "open_file", "args": {"file": "${packages}/Related Files/RelatedFiles.sublime-settings"}, "caption": "Settings – Default" },
                             { "command": "open_file", "args": {"file": "${packages}/User/RelatedFiles.sublime-settings"}, "caption": "Settings – User" },
                             { "caption": "-" }
                         ]
