@@ -1,6 +1,4 @@
-import sublime
-import sublime_plugin
-from related import *
+import sublime, sublime_plugin
 
 
 class RelatedFilesCommand(sublime_plugin.WindowCommand):

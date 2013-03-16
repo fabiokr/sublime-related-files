@@ -1,7 +1,4 @@
-import os
-import re
-import glob
-import itertools
+import os, re, glob, itertools
 
 
 class Related(object):
@@ -37,7 +34,7 @@ class Related(object):
         file_path = self.__to_posixpath(self.__file_path)
 
         # for each matching pattern
-        for regex, paths in self.__patterns.iteritems():
+        for regex, paths in list(self.__patterns.items()):
             match = re.compile(regex).match(file_path)
             if match:
                 # returns a flattened file list

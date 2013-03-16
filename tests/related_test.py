@@ -1,6 +1,6 @@
-import unittest
-import os
-from related import *
+import unittest, os
+
+from related_files.related import Related
 
 
 class RelatedTest(unittest.TestCase):
