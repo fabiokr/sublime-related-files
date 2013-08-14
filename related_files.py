@@ -61,7 +61,7 @@ class Related(object):
 
         # Ignores current file
         if self.__file_path in flattened:
-            flattened.remove(unicode(self.__file_path))
+            flattened.remove(self.__file_path)
 
         return flattened
 
