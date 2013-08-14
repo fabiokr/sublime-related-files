@@ -1,4 +1,4 @@
-# Sublime Text 2 - Related Files
+# Sublime Text 3 - Related Files Plugin
 
 ![Screenshot](https://raw.github.com/fabiokr/sublime-related-files/master/screenshots/list.png)
 
