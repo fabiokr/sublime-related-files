@@ -34,3 +34,20 @@ The plugins comes configured to lookup Rails related files, but you can add your
 The configuration has two parts: the key, which is a regular expression to match against the currently open file, and a list of globs to map the related files.
 
 You can use the $1, $2, etc. on the glob strings to be replace by the extracted parts from the regex.
+
+In addition to global configs, you can also have per project configs. To add that, in a sublime project file (project-name.sublime-project),
+add this:
+
+
+```json
+{
+  "settings":
+  {
+    "RelatedFiles": {
+      "patterns": {
+        // you project patterns
+      }
+    }
+  }
+}
+```
