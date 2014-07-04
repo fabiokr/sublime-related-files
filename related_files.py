@@ -11,7 +11,10 @@ class RelatedFilesCommand(sublime_plugin.WindowCommand):
             # Builds a list of related files for the current open file.
             self.__related = Related(active_file_path, self.__patterns(), sublime.active_window().folders())
 
-            self.window.show_quick_panel(self.__related.descriptions(), self.__open_file)
+            if len(self.__related.descriptions()) == 1:
+                self.__open_file(0)
+            else:
+                self.window.show_quick_panel(self.__related.descriptions(), self.__open_file)
         else:
             self.__status_msg("No open files")
 
