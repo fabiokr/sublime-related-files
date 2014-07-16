@@ -96,7 +96,7 @@ class RelatedFilesCommand(sublime_plugin.WindowCommand):
     # Opens the file in path.
     def __open_file(self, index):
         if index >= 0:
-            self.window.open_file(self.__related.files()[index])
+            sublime.set_timeout(lambda: self.window.open_file(self.__related.files()[index]), 0)
         else:
             self.__status_msg("No related files found")
 
