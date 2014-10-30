@@ -27,7 +27,14 @@ class RelatedFilesCommand(sublime_plugin.WindowCommand):
 
     # Retrieves the patterns from settings.
     def __patterns(self):
-        return sublime.load_settings("RelatedFiles.sublime-settings").get('patterns')
+        # default settings
+        patterns = sublime.load_settings("RelatedFiles.sublime-settings").get('patterns').copy()
+
+        # per project settings
+        if sublime.active_window().active_view().settings().get('RelatedFiles'):
+            patterns.update(sublime.active_window().active_view().settings().get('RelatedFiles').get('patterns'))
+
+        return patterns
 
     # Returns the activelly open file path from sublime.
     def __active_file_path(self):
